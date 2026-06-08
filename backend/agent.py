@@ -23,11 +23,11 @@ agent = create_agent(
     system_prompt="You are a helpful assistant"
 )
 
-while True:
-    question = input("You: ")
-    if question.lower() == "exit":
-        break
-    response = agent.invoke(
-        {"messages": [{"role": "user", "content": question}]}
-    )
-    print(f"Agent: {response['messages'][-1].content}\n")
+# while True:
+#     question = input("You: ")
+#     if question.lower() == "exit":
+#         break
+#     response = agent.invoke(
+#         {"messages": [{"role": "user", "content": question}]}
+#     )
+#     print(f"Agent: {response['messages'][-1].content}\n")
