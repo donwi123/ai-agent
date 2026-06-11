@@ -1,14 +1,20 @@
 import { useState } from 'react'
 import './App.css'
 
+interface Message{
+  role: 'user' | 'assistant'
+  content: string
+}
+
 export default function App() {
-  const [response, setResponse] = useState('');
+  const [messages, setMessages] = useState<Message[]>([])
   const [question, setQuestion] = useState('');
   const [buttonText, setButtonText] = useState('Click to submit your question');
   const [error, setError] = useState<string | null>(null)
   const API_URL = import.meta.env.VITE_API_URL + '/api/chat'
 
   async function handleSubmit() {
+    
     setButtonText('loading')
     setError(null)
     try{
@@ -17,12 +23,14 @@ export default function App() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({message: question})
     })
-
+    setMessages(prev => [...prev, { role: 'user', content: question }])
     const data = await serverResponse.json()
-    setResponse(data.response)
+    setMessages(prev => [...prev, { role: 'assistant', content: data.response }])
+    setQuestion('') 
     setButtonText('Click to submit your question')
 
     }catch (error) {
+    setMessages(prev => prev.slice(0, -1))
     setError('Something went wrong. Please try again.')
     setButtonText('Click to submit your question')  
   }
@@ -38,9 +46,14 @@ export default function App() {
         <p >This Ai is powered by Gemenis LLM and is able to search the internet.</p>
       </div>
 
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
       <div className='chatbox'>
-        <p className='chat-response'>{response}</p>
-        <p className='user-question'>{question}</p>
+          {messages.map((message, index) => (
+            <div key={index} className={message.role === 'user' ? 'user-message' : 'ai-message'}>
+                {message.content}
+            </div>
+          ))}
 
       </div>
 
