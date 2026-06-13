@@ -42,8 +42,8 @@ export default function App() {
   return(
     <div className='app-container'>
       <div className='header'>
-        <h1 >Ai research agent</h1>
-        <p >This Ai is powered by Gemenis LLM and is able to search the internet.</p>
+        <h1 >AI research agent</h1>
+        <p >This AI is powered by Gemenis LLM and is able to search the internet.</p>
       </div>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -57,17 +57,19 @@ export default function App() {
 
       </div>
 
-      <div className='text-box'>
-        <label>
-        <textarea className='textarea' name='chat'
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-        />
-        </label>
-      </div>
+      <div className='input-bar'>
+        <div>
+          <label>
+          <textarea className='textarea' name='chat'
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          />
+          </label>
+        </div>
 
-    <div className='submit-button'>
-      <button onClick={handleSubmit}>{buttonText}</button>
+      <div>
+        <button onClick={handleSubmit}>{buttonText}</button>
+      </div>
     </div>
 
 
