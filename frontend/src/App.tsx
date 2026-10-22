@@ -46,6 +46,8 @@ export default function App() {
         <p >This AI is powered by Gemenis LLM and is able to search the internet.</p>
       </div>
 
+      <div className="banner">⚠️ Please Note this is a free tier web hosting service initial spin up could take up to 30 seconds</div>
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <div className='chatbox'>
